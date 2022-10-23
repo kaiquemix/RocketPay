@@ -1,4 +1,5 @@
 import "./css/index.css"
+import IMask from "imask"
 
 const ccBgColor01 = document.querySelector(".cc-bg svg > g g:nth-child(1) path")
 const ccBgColor02 = document.querySelector(".cc-bg svg > g g:nth-child(2) path")
@@ -15,4 +16,19 @@ function setCardType(type) {
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
-setCardType("mastercard")
+const securityCode = document.querySelector("#security-code")
+const securityCodePattern = {
+  mask: "0000",
+}
+const securityCodeMasked = IMask(securityCode, securityCodePattern)
+
+const expirationDate = document.querySelector("#expiration-date")
+const expirationDatePattern = {
+  mask: "NN{/}YY",
+  blocks: {
+    mask: IMask.MaskedRange,
+    from: 1,
+    to: 12,
+  },
+}
+const expirationDateMaked = IMask(expirationDate, expirationDatePattern)
